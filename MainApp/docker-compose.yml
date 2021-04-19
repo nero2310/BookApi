@@ -13,9 +13,7 @@ services:
   mongo-db:
     image: mongo
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: nero
-      MONGO_INITDB_ROOT_PASSWORD : nero
-      MONGO_INITDB_DATABASE: nero
+    env_file:
+      .env
     ports:
       - 27017:27017
