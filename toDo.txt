@@ -1,3 +1,0 @@
-Mongo - Zautomatyzować tworzenie usera
-Mongo - Przerzucić się na plik env poza repo
-Mongo - Obecnie user nero hasło nero
