@@ -1,7 +1,7 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render, HttpResponse
 from django.views.generic import DetailView
 
-import requests as rq
+from .models import GoogleBookApi
 
 
 # Create your views here.
@@ -15,7 +15,8 @@ class BookDetail(DetailView):
         pass
 
     def get(self, request, *args, **kwargs):
-        response = rq.get("https://www.googleapis.com/books/v1/volumes?q=search+Witcher")
-        print(response)
-        return HttpResponse(response.json()["items"])
-
+        book_1 = GoogleBookApi()
+        book_1.search_parameters(title="Witcher", author="", publisher="", subject="", isbn="", lccn="", oclc="")
+        data = book_1.get_data()
+        print(data)
+        return HttpResponse(data)
