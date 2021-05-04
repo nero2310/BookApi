@@ -44,7 +44,6 @@ class GoogleBookApi(Book):
     def get_data(self):
         if self.query_parameters:
             request = requests.get(self._get_query_url())
-            print(request.json())
             return request.json()
         else:
             raise ValueError
@@ -52,12 +51,12 @@ class GoogleBookApi(Book):
     def search_parameters(self, **kwargs):
         self.query_parameters = {
             "title": kwargs.get("title", ''),
-            "author": kwargs.get("author", ''),
-            "publisher": kwargs.get("publisher", ''),
+            "author": kwargs.get("author",''),
+            "publisher": kwargs.get("publisher",''),
             "subject": kwargs.get("subject", ''),
-            "isbn": kwargs.get("isbn", ''),
-            "lccn": kwargs.get("lccn", ''),
-            "oclc": kwargs.get("oclc", '')
+            "isbn": kwargs.get("isbn",''),
+            "lccn": kwargs.get("lccn",''),
+            "oclc": kwargs.get("oclc",'')
         }
 
     def _get_query_url(self):
@@ -68,7 +67,19 @@ class GoogleBookApi(Book):
     def _add_search_criteria(self):
         search_criteria = ''
         for key, value in self.query_parameters.items():
-            if key != '':
-                search_criteria += value
-        print(f"Search criteria {search_criteria}")
+            if value == '':
+                continue
+            if len(search_criteria)>0:
+                search_criteria += "+"
+            if key == 'title':
+                search_criteria += f"intitle:{value}"
+
+            elif key == "author":
+                search_criteria += f"inauthor:{value}"
+
+            elif key == "publisher":
+                search_criteria += f"inpublisher:{value}"
+
+            else:
+                search_criteria += f"{key}:{value}"
         return search_criteria
