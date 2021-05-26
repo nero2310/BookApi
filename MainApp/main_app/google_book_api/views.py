@@ -15,8 +15,8 @@ class BookDetail(DetailView):
         pass
 
     def get(self, request, *args, **kwargs):
-        book_1 = GoogleBookApi()
+        book_1 = GoogleBookApi(limit=5)
         book_1.search_parameters(title="Witcher", author="", publisher="", subject="", isbn="", lccn="", oclc="")
         data = book_1.get_data()
         print(data)
-        return HttpResponse(data["items"])
+        return HttpResponse(data)
