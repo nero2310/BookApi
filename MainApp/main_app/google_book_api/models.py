@@ -36,6 +36,9 @@ class Book(models.Model):
     def _get_query_url(self, title, author, publisher, subject, isbn, lccn, oclc):
         pass
 
+    def _limit_search_results(self,data,limit = 200):
+        pass
+
 
 class GoogleBookApi(Book):
     api_url = "https://www.googleapis.com/books/v1/volumes?q="
@@ -44,9 +47,13 @@ class GoogleBookApi(Book):
     def get_data(self):
         if self.query_parameters:
             request = requests.get(self._get_query_url())
-            return request.json()
+            request.json()["items"] == self._limit_search_results(request.json())
+            return request.json()["items"]
         else:
             raise ValueError
+
+    def _limit_search_results(self,data,limit = 1):
+        return data["items"][0:limit]
 
     def search_parameters(self, **kwargs):
         self.query_parameters = {

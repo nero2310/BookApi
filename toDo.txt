@@ -1,2 +1,3 @@
 Pobierać dane konfiguracyjne z pliku .env także w przypadku configu w settings.py
 
+W skrócie w book google api search & któryś z warunków musi być spełniony + wszystkie muszą być spełnione
