@@ -10,21 +10,21 @@ class Author(models.Model):
     class Meta:
         abstract = True
 
-    name = models.TextField()
+    name = models.TextField(blank=True)
 
 
 class Book(models.Model):
     class Meta:
         abstract = True
 
-    kind = models.TextField()
-    api_book_id = models.TextField()
-    title = models.TextField()
+    title = models.CharField(max_length=100)
+    kind = models.CharField(blank=True, max_length=100)
+    api_book_id = models.CharField(blank=True, max_length=100)
     authors = dj.ArrayField(
         model_container=Author
     )
-    publisher = models.TextField()
-    publish_data = models.TextField()
+    publisher = models.CharField(blank=True, max_length=200)
+    publish_data = models.DateField(blank=True,null=True)
     api_url = ""
 
     def get_data(self):
@@ -36,11 +36,12 @@ class Book(models.Model):
     def _get_query_url(self, title, author, publisher, subject, isbn, lccn, oclc):
         pass
 
+
 class GoogleBookApi(Book):
     api_url = "https://www.googleapis.com/books/v1/volumes?q="
     query_parameters = {}
 
-    def __init__(self,limit = 200):
+    def __init__(self, limit=200):
         '''
 
         :param limit: Limit results returning by get_data method
@@ -57,12 +58,12 @@ class GoogleBookApi(Book):
     def search_parameters(self, **kwargs):
         self.query_parameters = {
             "title": kwargs.get("title", ''),
-            "author": kwargs.get("author",''),
-            "publisher": kwargs.get("publisher",''),
+            "author": kwargs.get("author", ''),
+            "publisher": kwargs.get("publisher", ''),
             "subject": kwargs.get("subject", ''),
-            "isbn": kwargs.get("isbn",''),
-            "lccn": kwargs.get("lccn",''),
-            "oclc": kwargs.get("oclc",'')
+            "isbn": kwargs.get("isbn", ''),
+            "lccn": kwargs.get("lccn", ''),
+            "oclc": kwargs.get("oclc", '')
         }
 
     def _get_query_url(self):
@@ -75,7 +76,7 @@ class GoogleBookApi(Book):
         for key, value in self.query_parameters.items():
             if value == '':
                 continue
-            if len(search_criteria)>0:
+            if len(search_criteria) > 0:
                 search_criteria += "+"
             if key == 'title':
                 search_criteria += f"intitle:{value}"
