@@ -20,3 +20,6 @@ class BookDetail(DetailView):
         data = book_1.get_data()
         print(data)
         return HttpResponse(data)
+
+    def post(self):
+        pass
