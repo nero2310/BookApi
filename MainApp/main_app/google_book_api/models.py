@@ -51,7 +51,9 @@ class GoogleBookApi(Book):
     def get_data(self):
         if self.query_parameters:
             request = requests.get(self._get_query_url())
-            return request.json()["items"][:self.limit]
+            return {
+              "items": request.json()["items"][:self.limit]
+            }
         else:
             raise ValueError
 

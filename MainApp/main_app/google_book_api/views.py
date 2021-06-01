@@ -22,5 +22,8 @@ class BookDetail(DetailView):
         return render(request, "google_book_api/search_form.html", context)
 
     def post(self, request):
-        context = {'0': 0}
+        BookApi = GoogleBookApi()
+        BookApi.search_parameters(**request.POST)
+        context = BookApi.get_data()
+        print(context)
         return render(request, "google_book_api/search_results.html", context)
