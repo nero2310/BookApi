@@ -3,6 +3,8 @@ from django.views.generic import DetailView
 
 from .models import GoogleBookApi
 
+from .forms import GoogleSearchForm
+
 
 # Create your views here.
 
@@ -15,11 +17,9 @@ class BookDetail(DetailView):
         pass
 
     def get(self, request, *args, **kwargs):
-        book_1 = GoogleBookApi(limit=5)
-        book_1.search_parameters(title="Witcher", author="", publisher="", subject="", isbn="", lccn="", oclc="")
-        data = book_1.get_data()
-        print(data)
-        return HttpResponse(data)
+        form = GoogleSearchForm()
+        context = {'form':form}
+        return render(request, "google_book_api/search_form.html",context)
 
     def post(self):
         pass
