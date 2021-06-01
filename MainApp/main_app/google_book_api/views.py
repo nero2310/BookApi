@@ -18,8 +18,9 @@ class BookDetail(DetailView):
 
     def get(self, request, *args, **kwargs):
         form = GoogleSearchForm()
-        context = {'form':form}
-        return render(request, "google_book_api/search_form.html",context)
+        context = {'form': form}
+        return render(request, "google_book_api/search_form.html", context)
 
-    def post(self):
-        pass
+    def post(self, request):
+        context = {'0': 0}
+        return render(request, "google_book_api/search_results.html", context)
