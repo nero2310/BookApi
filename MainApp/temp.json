@@ -1,0 +1,74 @@
+{
+            "kind": "books#volume",
+            "id": "8bpvDwAAQBAJ",
+            "etag": "lcljuNCXvA0",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/8bpvDwAAQBAJ",
+            "volumeInfo": {
+                "title": "The World of the Witcher",
+                "authors": [
+                    "Marcin Batylda",
+                    "CD Projekt Red"
+                ],
+                "publisher": "Dark Horse Books",
+                "publishedDate": "2015",
+                "description": "In a visually stunning volume, readers are taken on a guided tour of the fantastical realm of The Wicher video games, where they will meet Geralt, one of the few remaining monster hunters that inhabit this dark world.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9781616554828"
+                    },
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "1616554827"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": true
+                },
+                "pageCount": 184,
+                "printType": "BOOK",
+                "categories": [
+                    "Games & Activities"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "preview-1.0.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=8bpvDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=8bpvDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                },
+                "language": "un",
+                "previewLink": "http://books.google.pl/books?id=8bpvDwAAQBAJ&printsec=frontcover&dq=intitle:Witcher&hl=&cd=1&source=gbs_api",
+                "infoLink": "http://books.google.pl/books?id=8bpvDwAAQBAJ&dq=intitle:Witcher&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/The_World_of_the_Witcher.html?hl=&id=8bpvDwAAQBAJ"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "PARTIAL",
+                "embeddable": true,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=8bpvDwAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "SAMPLE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "In a visually stunning volume, readers are taken on a guided tour of the fantastical realm of The Wicher video games, where they will meet Geralt, one of the few remaining monster hunters that inhabit this dark world."
+            }
+        }
