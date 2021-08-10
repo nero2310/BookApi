@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for book in items %}
+        Title: {{ book.volumeInfo.title }}
+        Author:
+        {% for author in  book.volumeInfo.authors %}
+            <br>
+            {{ author }}
+        {% endfor %}
+        {{ book.volumeInfo.publisher }}
+        {{ book.volumeInfo.publishedDate }}
+        <br>
+    {% endfor %}
+
+{% endblock %}
