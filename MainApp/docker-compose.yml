@@ -10,10 +10,17 @@ services:
     volumes:
       - .:/main_app
 
-  mongo-db:
-    image: mongo
+#  mongo-db:
+#    image: mongo
+#    restart: always
+#    env_file:
+#      .env
+#    ports:
+#      - 27017:27017
+
+  postgres-db:
+    image: postgres
     restart: always
     env_file:
-      .env
-    ports:
-      - 27017:27017
+      - .env
+
