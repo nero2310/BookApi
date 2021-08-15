@@ -53,7 +53,7 @@ ROOT_URLCONF = 'main_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,14 +73,12 @@ WSGI_APPLICATION = 'main_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'ENFORCE_SCHEMA': 'False',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'test',
-        'CLIENT': {
-            'host': 'mongo-db',
-            'username': 'nero',
-            'password': 'password',
-        }
+        'USER': 'test',
+        'PASSWORD': 'test',
+        'HOST': 'postgres-db',
+        'PORT': '5432'
     }
 }
 
