@@ -1,16 +1,10 @@
 from django.db import models
-from djongo import models as dj
+from django.contrib.postgres.fields import ArrayField
 
 import requests
 
 
 # Create your models here.
-
-class Author(models.Model):
-    class Meta:
-        abstract = True
-
-    name = models.TextField(blank=True)
 
 
 class Book(models.Model):
@@ -20,8 +14,9 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     kind = models.CharField(blank=True, max_length=100)
     api_book_id = models.CharField(blank=True, max_length=100)
-    authors = dj.ArrayField(
-        model_container=Author
+    authors = ArrayField(
+        models.TextField(blank=True),
+        size=10
     )
     publisher = models.CharField(blank=True, max_length=200)
     publish_data = models.DateField(blank=True,null=True)
