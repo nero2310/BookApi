@@ -5,15 +5,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    restart: always
+    depends_on:
+    - postgres-db
     ports:
       - 8000:8000
     volumes:
       - .:/main_app
 
-  mongo-db:
-    image: mongo
+  postgres-db:
+    image: postgres
     restart: always
     env_file:
-      .env
+      - .env
     ports:
-      - 27017:27017
+      - 5432:5432
