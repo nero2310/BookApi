@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
+    depends_on:
+    - postgres-db
     ports:
       - 8000:8000
     volumes:

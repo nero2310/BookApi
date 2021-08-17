@@ -15,16 +15,16 @@ class GoogleBookApiUrlTest(TestCase):
         book_1.search_parameters()
         self.assertHTMLEqual("","")
 
-# class GoogleBookApiClientTest(TestCase):
-#     def setUp(self):
-#         self.client = Client()
-#
-#     def test_get_method(self):
-#         response = self.client.get('/book/detail')
-#         self.assertTrue(response.status_code == 301)
-#
-#     def test_post_method(self):
-#         response = self.client.get('/book/detail')
-#         self.assertTrue(response.status_code == 200)
+class GoogleBookApiClientTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_get_method(self):
+        response = self.client.get('/book/detail')
+        self.assertTrue(response.status_code == 301)
+
+    def test_post_method(self):
+        response = self.client.post('/book/detail')
+        self.assertEqual(response.status_code,301)
 
 
