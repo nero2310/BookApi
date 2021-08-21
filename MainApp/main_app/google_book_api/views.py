@@ -30,13 +30,13 @@ class BookDetail(DetailView):
 
 
 class ApiQueryGenerator:
-
     base_api_url = "https://www.googleapis.com/books/v1/volumes?q="
     aliases = {
         "title": "intitle",
         "author": "inauthor",
         "publisher": "inpublisher"
     }
+
     def __init__(self, **kwargs):
         self.query_parameters = {
             "title": kwargs.get("title", ''),
@@ -49,7 +49,7 @@ class ApiQueryGenerator:
         }
 
     def generate_query(self):
-        query = ""
+        query = self.base_api_url
         for key, value in self.query_parameters.items():
             if value == '':
                 continue
@@ -59,3 +59,4 @@ class ApiQueryGenerator:
                 query += self.aliases.get(key) + f":{value}"
             else:
                 query += f"{key}: {value}"
+        return query
