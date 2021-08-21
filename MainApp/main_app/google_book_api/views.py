@@ -49,7 +49,7 @@ class ApiQueryGenerator:
         }
 
     def generate_query(self):
-        query = self.base_api_url
+        query = ''
         for key, value in self.query_parameters.items():
             if value == '':
                 continue
@@ -59,4 +59,4 @@ class ApiQueryGenerator:
                 query += self.aliases.get(key) + f":{value}"
             else:
                 query += f"{key}: {value}"
-        return query
+        return self.base_api_url + query
