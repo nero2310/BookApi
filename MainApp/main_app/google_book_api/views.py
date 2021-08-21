@@ -27,3 +27,35 @@ class BookDetail(DetailView):
         context = BookApi.get_data()
         print(context)
         return render(request, "google_book_api/search_results.html", context)
+
+
+class ApiQueryGenerator:
+
+    base_api_url = "https://www.googleapis.com/books/v1/volumes?q="
+    aliases = {
+        "title": "intitle",
+        "author": "inauthor",
+        "publisher": "inpublisher"
+    }
+    def __init__(self, **kwargs):
+        self.query_parameters = {
+            "title": kwargs.get("title", ''),
+            "author": kwargs.get("author", ''),
+            "publisher": kwargs.get("publisher", ''),
+            "subject": kwargs.get("subject", ''),
+            "isbn": kwargs.get("isbn", ''),
+            "lccn": kwargs.get("lccn", ''),
+            "oclc": kwargs.get("oclc", '')
+        }
+
+    def generate_query(self):
+        query = ""
+        for key, value in self.query_parameters.items():
+            if value == '':
+                continue
+            if len(query) > 0:
+                query += "+"
+            if key in self.aliases:
+                query += self.aliases.get(key) + f":{value}"
+            else:
+                query += f"{key}: {value}"
