@@ -5,6 +5,7 @@ from .models import GoogleBookApi
 
 from .forms import GoogleSearchForm
 
+import requests as rq
 
 # Create your views here.
 
@@ -23,9 +24,9 @@ class BookDetail(DetailView):
 
     def post(self, request):
         BookApi = GoogleBookApi()
-        BookApi.search_parameters(**request.POST)
-        context = BookApi.get_data()
-        print(context)
+        QueryGenerator = ApiQueryGenerator(**request.POST)
+        url = QueryGenerator.generate_query()
+        context = data_fetch_from_api(url)
         return render(request, "google_book_api/search_results.html", context)
 
 
@@ -60,3 +61,11 @@ class ApiQueryGenerator:
             else:
                 query += f"{key}: {value}"
         return self.base_api_url + query
+
+def data_fetch_from_api(url):
+    data = rq.get(url)
+    if not "items" in data.json():
+        raise ValueError("No results for search ctiteria")
+    return {
+        "items": data.json()["items"]
+    }
