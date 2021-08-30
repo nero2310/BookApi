@@ -23,8 +23,6 @@ class Book(models.Model):
     def search_parameters(self, **kwargs):
         pass
 
-    def _get_query_url(self, title, author, publisher, subject, isbn, lccn, oclc):
-        pass
 
 
 
