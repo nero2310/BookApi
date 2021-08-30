@@ -1,9 +1,9 @@
 from django.forms import ModelForm
-from .views import GoogleBookApi
+from .models import Book
 
 
 class GoogleSearchForm(ModelForm):
     class Meta:
-        model = GoogleBookApi
+        model = Book
         fields = ('title', 'authors')
         success_url = '/book/details'

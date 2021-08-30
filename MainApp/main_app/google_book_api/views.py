@@ -1,8 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic import DetailView
 
-from .models import GoogleBookApi
-
 from .forms import GoogleSearchForm
 
 import requests as rq
@@ -23,7 +21,6 @@ class BookDetail(DetailView):
         return render(request, "google_book_api/search_form.html", context)
 
     def post(self, request):
-        BookApi = GoogleBookApi()
         QueryGenerator = ApiQueryGenerator(**request.POST)
         url = QueryGenerator.generate_query()
         context = data_fetch_from_api(url)
