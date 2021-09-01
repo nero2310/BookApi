@@ -15,14 +15,6 @@ class Book(models.Model):
     authors = models.JSONField()
     publisher = models.CharField(blank=True, max_length=200)
     publish_data = models.DateField(blank=True,null=True)
+    isbn = models.CharField(blank=True,max_length=13)
+
     api_url = ""
-
-    def get_data(self):
-        pass
-
-    def search_parameters(self, **kwargs):
-        pass
-
-
-
-

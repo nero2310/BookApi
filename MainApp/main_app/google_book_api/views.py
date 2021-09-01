@@ -9,12 +9,6 @@ import requests as rq
 
 class BookDetail(DetailView):
 
-    def get_context_data(self, **kwargs):
-        return 0
-
-    def get_queryset(self):
-        pass
-
     def get(self, request, *args, **kwargs):
         form = GoogleSearchForm()
         context = {'form': form}
