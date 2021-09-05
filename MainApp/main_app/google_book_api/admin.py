@@ -1,12 +1,23 @@
 from django.contrib import admin
 
-from .models import Book
+from .models import Book, Author
 
 
 # Register your models here.
 
+class AuthorToBookInline(admin.TabularInline):
+    model = Book.authors.through
+
+
 class AdminBook(admin.ModelAdmin):
-    pass
+    filter_horizontal = ('authors',)
+
+
+class AdminAuthor(admin.ModelAdmin):
+    inlines = [
+        AuthorToBookInline
+    ]
 
 
 admin.site.register(Book, AdminBook)
+admin.site.register(Author, AdminAuthor)
