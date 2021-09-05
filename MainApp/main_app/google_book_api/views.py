@@ -5,6 +5,7 @@ from .forms import GoogleSearchForm
 
 import requests as rq
 
+
 # Create your views here.
 
 class BookDetail(DetailView):
@@ -17,6 +18,7 @@ class BookDetail(DetailView):
     def post(self, request):
         QueryGenerator = ApiQueryGenerator(**request.POST)
         url = QueryGenerator.generate_query()
+        print(url)
         context = data_fetch_from_api(url)
         return render(request, "google_book_api/search_results.html", context)
 
@@ -25,14 +27,14 @@ class ApiQueryGenerator:
     base_api_url = "https://www.googleapis.com/books/v1/volumes?q="
     aliases = {
         "title": "intitle",
-        "author": "inauthor",
+        "authors": "inauthor",
         "publisher": "inpublisher"
     }
 
     def __init__(self, **kwargs):
         self.query_parameters = {
             "title": kwargs.get("title", ''),
-            "author": kwargs.get("authors", ''),
+            "authors": kwargs.get("authors", ''),
             "publisher": kwargs.get("publisher", ''),
             "subject": kwargs.get("subject", ''),
             "isbn": kwargs.get("isbn", ''),
@@ -43,15 +45,18 @@ class ApiQueryGenerator:
     def generate_query(self):
         query = ''
         for key, value in self.query_parameters.items():
-            if value == '':
+            if value == '' or value == ['']:
                 continue
             if len(query) > 0:
                 query += "+"
+            if isinstance(value, list):
+                pass
             if key in self.aliases:
                 query += self.aliases.get(key) + f":{value}"
             else:
                 query += f"{key}: {value}"
         return self.base_api_url + query
+
 
 def data_fetch_from_api(url):
     data = rq.get(url)
