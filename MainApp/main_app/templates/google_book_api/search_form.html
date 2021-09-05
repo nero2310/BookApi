@@ -8,10 +8,11 @@
         <small id="passwordHelpBlock" class="form-text text-muted">
             Input the book title whose you wanna search
         </small>
-{#    {{ form.title }}#}
     </div>
     <br>
-    {{ form.authors }}
+    <div class="form-group mb-2">
+        <input type="text" class="form-control" name="authors" id="id_authors">
+    </div>
     <input type="submit" value="Search">
     </form>
     </div>

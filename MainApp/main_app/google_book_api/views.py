@@ -38,7 +38,7 @@ class ApiQueryGenerator:
     def __init__(self, **kwargs):
         self.query_parameters = {
             "title": kwargs.get("title", ''),
-            "author": kwargs.get("author", ''),
+            "author": kwargs.get("authors", ''),
             "publisher": kwargs.get("publisher", ''),
             "subject": kwargs.get("subject", ''),
             "isbn": kwargs.get("isbn", ''),
