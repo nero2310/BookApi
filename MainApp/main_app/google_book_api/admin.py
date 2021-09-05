@@ -5,7 +5,7 @@ from .models import Book, Author
 
 # Register your models here.
 
-class AuthorToBookInline(admin.TabularInline):
+class AuthorToBookInline(admin.StackedInline):
     model = Book.authors.through
 
 

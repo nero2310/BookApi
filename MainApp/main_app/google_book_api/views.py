@@ -45,7 +45,7 @@ class ApiQueryGenerator:
     def generate_query(self):
         query = ''
         for key, value in self.query_parameters.items():
-            if value == '' or value == ['']:
+            if value == '' or any(value) == False:
                 continue
             if len(query) > 0:
                 query += "+"
