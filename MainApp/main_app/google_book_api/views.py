@@ -50,7 +50,11 @@ class ApiQueryGenerator:
             if len(query) > 0:
                 query += "+"
             if isinstance(value, list):
-                pass
+                for element in value:
+                    query += self.aliases.get(key) + f":{element}"
+                    query += "+"
+                query = query[:-1]
+                continue
             if key in self.aliases:
                 query += self.aliases.get(key) + f":{value}"
             else:
