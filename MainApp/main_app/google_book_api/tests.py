@@ -26,6 +26,11 @@ class QueryLinkGenerationTest(TestCase):
         url = test.generate_query()
         self.assertEqual(url, "https://www.googleapis.com/books/v1/volumes?q=")
 
+    def test_query_with_title(self):
+        test = ApiQueryGenerator(**{"title":"Witcher"})
+        url = test.generate_query()
+        self.assertEqual(url, "https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher")
+
     def test_query_with_author(self):
         test = ApiQueryGenerator(**{"authors": "Martin"})
         url = test.generate_query()
