@@ -1,9 +1,6 @@
-from django.forms import ModelForm
-from .models import Book
+from django import forms
 
 
-class GoogleSearchForm(ModelForm):
-    class Meta:
-        model = Book
-        fields = ('title', 'authors')
-        success_url = '/book/details'
+class GoogleSearchForm(forms.Form):
+    title = forms.CharField(label="title", max_length=100)
+    author = forms.CharField(label="author", max_length=100)
