@@ -17,4 +17,5 @@ class Book(models.Model):
     publish_data = models.DateField(blank=True,null=True)
     isbn = models.CharField(blank=True,max_length=13)
 
-    api_url = ""
+    def __str__(self):
+        return self.title
