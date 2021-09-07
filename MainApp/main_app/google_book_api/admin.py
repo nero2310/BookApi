@@ -11,6 +11,7 @@ class AuthorToBookInline(admin.StackedInline):
 
 class AdminBook(admin.ModelAdmin):
     filter_horizontal = ('authors',)
+    prepopulated_fields = {"slug":["api_book_id"]}
 
 
 class AdminAuthor(admin.ModelAdmin):
