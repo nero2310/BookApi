@@ -61,5 +61,7 @@ class BookSearchFormTest(TestCase):
                                       "author":["R.R Marting","J.K Rowling"]})
         self.assertEqual(form.errors, {})
 
+class BookClassTest(TestCase):
 
-
+    def setUp(self):
+        pass
