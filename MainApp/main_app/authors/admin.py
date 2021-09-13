@@ -14,6 +14,8 @@ class AdminAuthor(admin.ModelAdmin):
     inlines = [
         AuthorToBookInline
     ]
+    prepopulated_fields = {"slug":["name"]}
+
 
 
 admin.site.register(Author, AdminAuthor)

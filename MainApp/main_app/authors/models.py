@@ -7,7 +7,7 @@ from django.db import models
 class Author(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
-    birth_date = models.DateField()
+    birth_date = models.DateField(blank=True, null=True)
     death_date = models.DateField(blank=True, null=True)
     biography = models.TextField(blank=True, null=True)
 
