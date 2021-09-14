@@ -1,4 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
     {{ author_name }}
+    {% for book in books %}
+        <br>
+        {{ book }}
+    {% endfor %}
 {% endblock %}
