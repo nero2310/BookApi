@@ -19,4 +19,5 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('book/',include('google_book_api.urls')),
+    path('author/', include('authors.urls')),
 ]
