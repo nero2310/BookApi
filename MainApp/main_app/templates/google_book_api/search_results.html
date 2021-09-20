@@ -4,8 +4,8 @@
         Title: {{ book.volumeInfo.title }}
         Author:
         {% for author in  book.volumeInfo.authors %}
-            <br>
             {{ author }}
+            <br>
         {% endfor %}
         {{ book.volumeInfo.publisher }}
         {{ book.volumeInfo.publishedDate }}
