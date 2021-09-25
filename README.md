@@ -14,13 +14,20 @@ https://docs.docker.com/compose/install/
 <br>
 <br>
 
+2. Create .env file inside MainApp folder
+   the context of this file should look like this:
+      <br>
+      <code>
+      POSTGRES_PASSWORD="db_password" <br>
+      POSTGRES_USER="db_user" <br>
+      POSTGRES_DB="db_name" <br>
+   </code>
 2. Use your terminal to start Docker <code>docker-compose up -d  </code>
 
 3. Open your browser on https://127.0.0.1:8000
 
 ## Contribution
 
-Repository is 
 
 Feel free to fork repository, if you want to add new functionality open a new issue
 with tag <code>enhancement</code>
