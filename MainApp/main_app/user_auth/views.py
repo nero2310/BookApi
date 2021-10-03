@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
 
@@ -22,3 +22,7 @@ def login_view(request):
     else:
         form = AuthenticationForm(request)
         return render(request, "user_auth/login_page.html", context={'form': form})
+
+def logout_user(request):
+    logout(request)
+    return render(request,"user_auth/logout_page.html")
