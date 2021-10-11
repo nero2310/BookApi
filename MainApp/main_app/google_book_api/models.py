@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 from authors.models import Author
+
 
 # Create your models here.
 
@@ -25,3 +27,13 @@ class Book(models.Model):
         if not self.slug:
             self.slug = slugify(self.api_book_id)
         super(Book, self).save(*args, **kwargs)
+
+
+class Library(models.Model):
+    slug = models.SlugField(unique=True)
+    owner = models.OneToOneField(User, on_delete=models.PROTECT)
+    books = models.ForeignKey(Book,on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.owner)
