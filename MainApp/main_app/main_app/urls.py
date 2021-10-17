@@ -20,5 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('book/', include('google_book_api.urls')),
     path('author/', include('authors.urls')),
-    path('user/', include('user_auth.urls'))
+    path('user/', include('user_auth.urls', namespace='user_auth'))
 ]

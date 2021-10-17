@@ -8,6 +8,5 @@ from .models import Library
 @receiver(post_save, sender=User)
 def create_library(sender, instance, created, **kwargs):
     if created:
-        print("Działa")
         a = Library.objects.create(owner=instance)
         a.save()

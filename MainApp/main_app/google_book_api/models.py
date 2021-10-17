@@ -31,13 +31,13 @@ class Book(models.Model):
 
 class Library(models.Model):
     slug = models.SlugField(unique=True)
-    owner = models.OneToOneField(User, on_delete=models.PROTECT)
+    owner = models.OneToOneField(User, on_delete=models.CASCADE)
     books = models.ManyToManyField(Book)
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.owner.username)
-        super().save(*args,**kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return (self.owner.username)
+        return self.owner.username
