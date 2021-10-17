@@ -2,14 +2,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import DetailView
 
 from .forms import GoogleSearchForm
-from .models import Library
+from .models import Library, Book
 
 import requests as rq
 
 
 # Create your views here.
 
-class BookDetail(DetailView):
+class BookSearch(DetailView):  # toDo Verify if DetailView is need
 
     def get(self, request, *args, **kwargs):
         form = GoogleSearchForm()
@@ -23,6 +23,11 @@ class BookDetail(DetailView):
         return render(request, "google_book_api/search_results.html", context)
 
 
+class BookDetailView(DetailView):
+
+    template_name = 'google_book_api/book_detail.html'
+    model = Book
+
 class LibraryDetail(DetailView):
     model = Library
 
@@ -32,6 +37,7 @@ class LibraryDetail(DetailView):
             return render(request, "google_book_api/user_library.html", {'library': library})
         else:
             return redirect('user_auth:login_view')
+
 
 class ApiQueryGenerator:
     base_api_url = "https://www.googleapis.com/books/v1/volumes?q="
