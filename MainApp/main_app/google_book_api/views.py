@@ -26,6 +26,7 @@ class BookSearch(DetailView):  # toDo Verify if DetailView is need
 class BookDetailView(DetailView):
 
     template_name = 'google_book_api/book_detail.html'
+    template_name_field = 'book'
     model = Book
 
 class LibraryDetail(DetailView):

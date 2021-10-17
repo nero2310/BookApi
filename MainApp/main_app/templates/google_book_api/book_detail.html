@@ -1,4 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-Book detail info
+    {{ book.title }} <br>
+    {{ book.publisher }} <br>
+    {{ book.publish_data }}
+    {% for author in book.authors.all  %}
+        <br>
+        {{ author }}
+    {% endfor %}
+
 {% endblock %}
