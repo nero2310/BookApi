@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import DetailView
+from django.views.generic import View, DetailView
 
 from .forms import GoogleSearchForm
 from .models import Library, Book
@@ -9,7 +9,7 @@ import requests as rq
 
 # Create your views here.
 
-class BookSearch(DetailView):  # toDo Verify if DetailView is need
+class BookSearch(View):  # toDo Verify if DetailView is need
 
     def get(self, request, *args, **kwargs):
         form = GoogleSearchForm()
@@ -24,10 +24,10 @@ class BookSearch(DetailView):  # toDo Verify if DetailView is need
 
 
 class BookDetailView(DetailView):
-
     template_name = 'google_book_api/book_detail.html'
     template_name_field = 'book'
     model = Book
+
 
 class LibraryDetail(DetailView):
     model = Library
@@ -59,7 +59,7 @@ class ApiQueryGenerator:
             "oclc": kwargs.get("oclc", '')
         }
 
-    def generate_query(self):
+    def generate_query(self, start_index=0, max_results=10):
         query = ''
         for key, value in self.query_parameters.items():
             if value == '' or any(value) == False:
@@ -76,13 +76,21 @@ class ApiQueryGenerator:
                 query += self.aliases.get(key) + f":{value}"
             else:
                 query += f"{key}: {value}"
-        return self.base_api_url + query
+        api_query = self.pagination(self.base_api_url + query, start_index, max_results)
+        return api_query
+
+    def pagination(self, url, start_index, max_results=10):
+        if url.rfind("&startIndex") == -1:  # rfind return -1 if value not found
+            url += f"&startIndex={start_index}&maxResults={max_results}"
+            return url
+        else:  # Not implemented yet
+            raise NotImplementedError
 
 
 def data_fetch_from_api(url):
     data = rq.get(url)
-    if not "items" in data.json():
-        raise ValueError("No results for search ctiteria")
-    return {
-        "items": data.json()["items"]
-    }
+    if "items" in data.json():
+        return {
+            "items": data.json()["items"]
+        }
+    raise ValueError("No results for search ctiteria")
