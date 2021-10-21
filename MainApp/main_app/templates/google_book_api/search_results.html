@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    {% for book in items %}
+    {% for book in books.items %}
         Title: {{ book.volumeInfo.title }}
         Author:
         {% for author in  book.volumeInfo.authors %}
@@ -11,5 +11,5 @@
         {{ book.volumeInfo.publishedDate }}
         <br>
     {% endfor %}
-
+    {{ page.page }}
 {% endblock %}

@@ -9,7 +9,7 @@ import requests as rq
 
 # Create your views here.
 
-class BookSearch(View):  # toDo Verify if DetailView is need
+class BookSearch(View):
 
     def get(self, request, *args, **kwargs):
         form = GoogleSearchForm()
@@ -19,8 +19,13 @@ class BookSearch(View):  # toDo Verify if DetailView is need
     def post(self, request):
         QueryGenerator = ApiQueryGenerator(**request.POST)
         url = QueryGenerator.generate_query()
+        request.session['test'] = 'test'
         context = data_fetch_from_api(url)
-        return render(request, "google_book_api/search_results.html", context)
+        page = {"page": request.session['test']}
+        return render(request, "google_book_api/search_results.html", {
+            'books': context,
+            'page': page
+        })
 
 
 class BookDetailView(DetailView):
@@ -56,10 +61,11 @@ class ApiQueryGenerator:
             "subject": kwargs.get("subject", ''),
             "isbn": kwargs.get("isbn", ''),
             "lccn": kwargs.get("lccn", ''),
-            "oclc": kwargs.get("oclc", '')
+            "oclc": kwargs.get("oclc", ''),
         }
+        self.current_page = kwargs.get("page",1)
 
-    def generate_query(self, start_index=0, max_results=10):
+    def generate_query(self, max_results=10):
         query = ''
         for key, value in self.query_parameters.items():
             if value == '' or any(value) == False:
@@ -76,12 +82,12 @@ class ApiQueryGenerator:
                 query += self.aliases.get(key) + f":{value}"
             else:
                 query += f"{key}: {value}"
-        api_query = self.pagination(self.base_api_url + query, start_index, max_results)
+        api_query = self.pagination(self.base_api_url + query, self.current_page, max_results)
         return api_query
 
-    def pagination(self, url, start_index, max_results=10):
+    def pagination(self, url, page, max_results=10):
         if url.rfind("&startIndex") == -1:  # rfind return -1 if value not found
-            url += f"&startIndex={start_index}&maxResults={max_results}"
+            url += f"&startIndex={(page - 1)*max_results}&maxResults={max_results}"
             return url
         else:  # Not implemented yet
             raise NotImplementedError
