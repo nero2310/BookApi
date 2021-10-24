@@ -6,18 +6,6 @@ from .forms import GoogleSearchForm
 # Create your tests here.
 
 
-class GoogleBookApiClientTest(TestCase):
-    def setUp(self):
-        self.client = Client()
-
-    def test_get_method(self):
-        response = self.client.get('/book/detail')
-        self.assertTrue(response.status_code == 301)
-
-    def test_post_method(self):
-        response = self.client.post('/book/detail')
-        self.assertEqual(response.status_code, 301)
-
 
 class QueryLinkGenerationTest(TestCase):
 

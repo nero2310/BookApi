@@ -47,6 +47,7 @@ class ApiQueryGenerator:
         "authors": "inauthor",
         "publisher": "inpublisher"
     }
+    url = None
 
     def __init__(self, **kwargs):
         self.query_parameters = {
@@ -76,13 +77,13 @@ class ApiQueryGenerator:
                 query += self.aliases.get(key) + f":{value}"
             else:
                 query += f"{key}: {value}"
-        api_query = self.pagination(self.base_api_url + query, start_index, max_results)
-        return api_query
+        self.url = self.base_api_url + query
+        return self.url
 
-    def pagination(self, url, start_index, max_results=10):
-        if url.rfind("&startIndex") == -1:  # rfind return -1 if value not found
-            url += f"&startIndex={start_index}&maxResults={max_results}"
-            return url
+    def pagination(self, start_index, max_results=10):
+        if self.url.rfind("&startIndex") == -1:  # rfind return -1 if value not found
+            self.url += f"&startIndex={start_index}&maxResults={max_results}"
+            return self.url
         else:  # Not implemented yet
             raise NotImplementedError
 
