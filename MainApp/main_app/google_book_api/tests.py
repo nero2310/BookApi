@@ -66,6 +66,7 @@ class TestPagination(TestCase):
         self.assertEqual(test.pagination(generated_url, 1, 10),
                  'https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher&startIndex=10&maxResults=10')
 
+
     def test_pagination_with_nonstandard_maxResultValue(self):
         test = ApiQueryGenerator(**{"title": "Witcher"})
         generated_url = test.generate_query()

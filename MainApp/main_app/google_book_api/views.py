@@ -82,8 +82,6 @@ class ApiQueryGenerator:
         if url.rfind("&startIndex") == -1:  # rfind return -1 if value not found
             url += f"&startIndex={page * max_results}&maxResults={max_results}"
             return url
-        else:  # Not implemented yet
-            raise NotImplementedError
 
 
 def data_fetch_from_api(url):
