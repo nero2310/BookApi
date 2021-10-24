@@ -9,7 +9,7 @@ import requests as rq
 
 # Create your views here.
 
-class BookSearch(View):  # toDo Verify if DetailView is need
+class BookSearch(View):
 
     def get(self, request, *args, **kwargs):
         form = GoogleSearchForm()
@@ -47,7 +47,6 @@ class ApiQueryGenerator:
         "authors": "inauthor",
         "publisher": "inpublisher"
     }
-    url = None
 
     def __init__(self, **kwargs):
         self.query_parameters = {
@@ -77,13 +76,12 @@ class ApiQueryGenerator:
                 query += self.aliases.get(key) + f":{value}"
             else:
                 query += f"{key}: {value}"
-        self.url = self.base_api_url + query
-        return self.url
+        return self.base_api_url + query
 
-    def pagination(self, start_index, max_results=10):
-        if self.url.rfind("&startIndex") == -1:  # rfind return -1 if value not found
-            self.url += f"&startIndex={start_index}&maxResults={max_results}"
-            return self.url
+    def pagination(self, url, page, max_results=10):
+        if url.rfind("&startIndex") == -1:  # rfind return -1 if value not found
+            url += f"&startIndex={page * max_results}&maxResults={max_results}"
+            return url
         else:  # Not implemented yet
             raise NotImplementedError
 
