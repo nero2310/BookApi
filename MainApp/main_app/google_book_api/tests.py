@@ -61,14 +61,20 @@ class TestPagination(TestCase):
     def test_base_pagination(self):
         test = ApiQueryGenerator(**{"title": "Witcher"})
         generated_url = test.generate_query()
-        self.assertEqual(test.pagination(generated_url, 0, 10),
+        self.assertEqual(test.pagination(generated_url, 0),
                          'https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher&startIndex=0&maxResults=10')
-        self.assertEqual(test.pagination(generated_url, 1, 10),
+        self.assertEqual(test.pagination(generated_url, 2),
                  'https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher&startIndex=10&maxResults=10')
 
 
     def test_pagination_with_nonstandard_maxResultValue(self):
         test = ApiQueryGenerator(**{"title": "Witcher"})
         generated_url = test.generate_query()
-        self.assertEqual(test.pagination(generated_url, 1, 15),
+        self.assertEqual(test.pagination(generated_url, 2, 15),
                          'https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher&startIndex=15&maxResults=15')
+
+    def test_pagination_negative_page(self):
+        test = ApiQueryGenerator(**{"title": "Witcher"})
+        generated_url = test.generate_query()
+        self.assertEqual(test.pagination(generated_url, -1, 15),
+                         'https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher&startIndex=0&maxResults=15')

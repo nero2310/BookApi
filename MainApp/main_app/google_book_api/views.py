@@ -82,10 +82,13 @@ class ApiQueryGenerator:
                 query += self.aliases.get(key) + f":{value}"
             else:
                 query += f"{key}: {value}"
+        return self.base_api_url + query
 
     def pagination(self, url, page, max_results=10):
+        if page < 1: # Not allowing for negative/zero pages
+            page = 1
         if url.rfind("&startIndex") == -1:  # rfind return -1 if value not found
-            url += f"&startIndex={page * max_results}&maxResults={max_results}"
+            url += f"&startIndex={(page - 1)* max_results}&maxResults={max_results}"
             return url
 
 
