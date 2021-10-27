@@ -19,14 +19,9 @@ class QueryLinkGenerationTest(TestCase):
         self.assertEqual(url, "https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher")
 
     def test_query_with_author(self):
-        test = ApiQueryGenerator(**{"authors": "Martin"})
+        test = ApiQueryGenerator(**{"author": "Martin"})
         url = test.generate_query()
         self.assertEqual(url, "https://www.googleapis.com/books/v1/volumes?q=inauthor:Martin")
-
-    def test_query_with_multiple_authors(self):
-        test = ApiQueryGenerator(**{"authors": ["A", "B", "C"]})
-        url = test.generate_query()
-        self.assertEqual(url, "https://www.googleapis.com/books/v1/volumes?q=inauthor:A+inauthor:B+inauthor:C")
 
 
 class BookSearchFormTest(TestCase):
