@@ -40,4 +40,4 @@ class Library(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.owner.username
+        return f"User {self.owner.username} library"
