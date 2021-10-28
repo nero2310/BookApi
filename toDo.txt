@@ -1,3 +1,0 @@
-Pobierać dane konfiguracyjne z pliku .env także w przypadku configu w settings.py
-
-Dodać Paginacje

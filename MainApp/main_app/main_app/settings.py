@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'google_book_api',
-    'authors'
+    'authors',
+    'user_auth'
 ]
 
 MIDDLEWARE = [
