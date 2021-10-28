@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views.generic import View, DetailView
+from django.http import Http404
 
 from .forms import GoogleSearchForm
 from .models import Library, Book
@@ -109,4 +110,4 @@ def data_fetch_from_api(url):
         return {
             "items": data.json()["items"]
         }
-    raise ValueError("No results for search ctiteria")
+    raise Http404("No results for search ctiteria")
