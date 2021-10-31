@@ -103,10 +103,9 @@ class SearchBooksGoogleApi:
             return url
 
 
-def data_fetch_from_api(url):
+def data_fetch_from_api(url): # toDo Raise Http404 if status code is 503
     data = rq.get(url)
-    print(url)
-    if len(data.json()) !=0:
+    if data:
         if "items" in data.json():
             return {
                 "items": data.json()["items"]
