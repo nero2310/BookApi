@@ -7,6 +7,7 @@
             {{ author }}
             <br>
         {% endfor %}
+        <img src = {{book.volumeInfo.imageLinks.smallThumbnail}} loading = "lazy">
         {{ book.volumeInfo.publisher }}
         {{ book.volumeInfo.publishedDate }}
         <br>
