@@ -1,12 +1,11 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+import requests as rq
 from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic import View, DetailView
 from django.http import Http404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.views.generic import DetailView
 
 from .forms import GoogleSearchForm
 from .models import Library, Book
-
-import requests as rq
 
 
 # Create your views here.
@@ -41,13 +40,9 @@ def book_search_results(request, **kwargs):
     })
 
 def book_detail_view(request, slug):
-    try:
-        book = Book.objects.get(slug = slug)
-        return render(request, "google_book_api/book_detail.html", context= {'book':book})
-    except ObjectDoesNotExist:
-        url = f"https://www.googleapis.com/books/v1/volumes/{slug}"
-        book = data_fetch_from_api(url)['volumeInfo']
-        return render(request, "google_book_api/book_detail.html", context= {'book':book})
+    url = f"https://www.googleapis.com/books/v1/volumes/{slug}"
+    book = data_fetch_from_api(url)
+    return render(request, "google_book_api/book_detail.html", context= {'book':book})
 
 
 
