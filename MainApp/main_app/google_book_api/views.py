@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import View, DetailView
 from django.http import Http404
 
@@ -30,15 +31,24 @@ def book_search_results(request, **kwargs):
         'title': kwargs.get('title', ''),
         'author': kwargs.get('author', ''),
     }
-    QueryGenerator = ApiQueryGenerator(**query)
+    QueryGenerator = SearchBooksGoogleApi(**query)
     url = QueryGenerator.generate_query()
     context = data_fetch_from_api(url)
-    print(url)
     page = 1
     return render(request, "google_book_api/search_results.html", {
         'books': context,
         'page': page
     })
+
+def book_deatil_view(request, slug):
+    try:
+        book = Book.objects.get(slug = slug)
+        return render(request, "google_book_api/book_detail.html", context= {'book':book})
+    except ObjectDoesNotExist:
+        url = f"https://www.googleapis.com/books/v1/volumes/{slug}"
+        book = data_fetch_from_api(url)['volumeInfo']
+        return render(request, "google_book_api/book_detail.html", context= {'book':book})
+
 
 
 class BookDetailView(DetailView):
@@ -58,7 +68,7 @@ class LibraryDetail(DetailView):
             return redirect('user_auth:login_view')
 
 
-class ApiQueryGenerator:
+class SearchBooksGoogleApi:
     base_api_url = "https://www.googleapis.com/books/v1/volumes?q="
     aliases = {
         "title": "intitle",
@@ -107,8 +117,12 @@ class ApiQueryGenerator:
 
 def data_fetch_from_api(url):
     data = rq.get(url)
-    if "items" in data.json():
-        return {
-            "items": data.json()["items"]
-        }
+    print(url)
+    if len(data.json()) !=0:
+        if "items" in data.json():
+            return {
+                "items": data.json()["items"]
+            }
+        else:
+            return data.json()
     raise Http404("No results for search ctiteria")
