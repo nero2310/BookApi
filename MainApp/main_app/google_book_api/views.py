@@ -40,7 +40,7 @@ def book_search_results(request, **kwargs):
         'page': page
     })
 
-def book_deatil_view(request, slug):
+def book_detail_view(request, slug):
     try:
         book = Book.objects.get(slug = slug)
         return render(request, "google_book_api/book_detail.html", context= {'book':book})
@@ -125,4 +125,4 @@ def data_fetch_from_api(url):
             }
         else:
             return data.json()
-    raise Http404("No results for search ctiteria")
+    raise Http404("No results for search criteria")
