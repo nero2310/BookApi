@@ -45,13 +45,6 @@ def book_detail_view(request, slug):
     return render(request, "google_book_api/book_detail.html", context= {'book':book})
 
 
-
-class BookDetailView(DetailView):
-    template_name = 'google_book_api/book_detail.html'
-    template_name_field = 'book'
-    model = Book
-
-
 class LibraryDetail(DetailView):
     model = Library
 

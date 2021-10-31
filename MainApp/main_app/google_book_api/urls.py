@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import book_search, book_search_results, book_detail_view, LibraryDetail, BookDetailView
+from .views import book_search, book_search_results, book_detail_view, LibraryDetail
 
 urlpatterns = [
     path('search', book_search),
