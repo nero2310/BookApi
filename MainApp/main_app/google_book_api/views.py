@@ -33,6 +33,7 @@ def book_search_results(request, **kwargs):
     QueryGenerator = ApiQueryGenerator(**query)
     url = QueryGenerator.generate_query()
     context = data_fetch_from_api(url)
+    print(url)
     page = 1
     return render(request, "google_book_api/search_results.html", {
         'books': context,
