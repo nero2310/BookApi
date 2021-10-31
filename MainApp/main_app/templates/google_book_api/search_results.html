@@ -7,7 +7,12 @@
             {{ author }}
             <br>
         {% endfor %}
-        <img src = {{book.volumeInfo.imageLinks.smallThumbnail}} loading = "lazy">
+        {% if book.volumeInfo.imageLinks.smallThumbnail %}
+            <img src = {{book.volumeInfo.imageLinks.thumbnail}} width = "134" height = "204" >
+        {% else %}
+            <img src=https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Book_important.svg/128px-Book_important.svg.png
+                 width="134" height="204" alt="Book without cover"/>
+        {% endif %}
         {{ book.volumeInfo.publisher }}
         {{ book.volumeInfo.publishedDate }}
         <br>
