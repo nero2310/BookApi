@@ -21,6 +21,9 @@ def book_search(request):
             if cd.get('author','') != '':
                 query['author'] = cd['author']
             return redirect(reverse('search_results',kwargs = query))
+        else:
+            print(form.errors)
+            return render(request, "google_book_api/search_form.html",context= {'form':form})
     form = GoogleSearchForm()
     context = {'form': form}
     return render(request, "google_book_api/search_form.html", context)
