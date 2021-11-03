@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-    {{ book.title }} <br>
-    {{ book.publisher }} <br>
-    {{ book.publish_data }}
-    {% for author in book.authors.all  %}
+    {{ book.volumeInfo.title }} <br>
+    {{ book.volumeInfo.publisher }} <br>
+    {{ book.volumeInfo.publishedDate }} <br>
+    {{ book.volumeInfo.description|striptags }} <br>
+    Authors:
+    {% for author in book.volumeInfo.authors %}
         <br>
         {{ author }}
     {% endfor %}

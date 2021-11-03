@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from .views import ApiQueryGenerator
+from .views import SearchBooksGoogleApi
 from .forms import GoogleSearchForm
 
 
@@ -9,17 +9,17 @@ from .forms import GoogleSearchForm
 class QueryLinkGenerationTest(TestCase):
 
     def test_query_without_parameters(self):
-        test = ApiQueryGenerator()
+        test = SearchBooksGoogleApi()
         url = test.generate_query()
         self.assertEqual(url, "https://www.googleapis.com/books/v1/volumes?q=")
 
     def test_query_with_title(self):
-        test = ApiQueryGenerator(**{"title": "Witcher"})
+        test = SearchBooksGoogleApi(**{"title": "Witcher"})
         url = test.generate_query()
         self.assertEqual(url, "https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher")
 
     def test_query_with_author(self):
-        test = ApiQueryGenerator(**{"author": "Martin"})
+        test = SearchBooksGoogleApi(**{"author": "Martin"})
         url = test.generate_query()
         self.assertEqual(url, "https://www.googleapis.com/books/v1/volumes?q=inauthor:Martin")
 
@@ -54,7 +54,7 @@ class BookClassTest(TestCase):
 class TestPagination(TestCase):
 
     def test_base_pagination(self):
-        test = ApiQueryGenerator(**{"title": "Witcher"})
+        test = SearchBooksGoogleApi(**{"title": "Witcher"})
         generated_url = test.generate_query()
         self.assertEqual(test.pagination(generated_url, 0),
                          'https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher&startIndex=0&maxResults=10')
@@ -63,13 +63,13 @@ class TestPagination(TestCase):
 
 
     def test_pagination_with_nonstandard_maxResultValue(self):
-        test = ApiQueryGenerator(**{"title": "Witcher"})
+        test = SearchBooksGoogleApi(**{"title": "Witcher"})
         generated_url = test.generate_query()
         self.assertEqual(test.pagination(generated_url, 2, 15),
                          'https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher&startIndex=15&maxResults=15')
 
     def test_pagination_negative_page(self):
-        test = ApiQueryGenerator(**{"title": "Witcher"})
+        test = SearchBooksGoogleApi(**{"title": "Witcher"})
         generated_url = test.generate_query()
         self.assertEqual(test.pagination(generated_url, -1, 15),
                          'https://www.googleapis.com/books/v1/volumes?q=intitle:Witcher&startIndex=0&maxResults=15')

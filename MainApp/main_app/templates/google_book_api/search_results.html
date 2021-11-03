@@ -7,6 +7,15 @@
             {{ author }}
             <br>
         {% endfor %}
+        <a href=" {% url "single_book_view" book.id %}">
+        {% if book.volumeInfo.imageLinks.thumbnail %}
+            <img src = {{book.volumeInfo.imageLinks.thumbnail}} width = "134" height = "204" >
+        {% else %}
+            <img src=https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Book_important.svg/128px-Book_important.svg.png
+                 width="134" height="204" alt="Book without cover"/>
+{#            https://creativecommons.org/use-remix/#}
+        {% endif %}
+        </a>
         {{ book.volumeInfo.publisher }}
         {{ book.volumeInfo.publishedDate }}
         <br>

@@ -1,11 +1,11 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
-from django.views.generic import View, DetailView
+import requests as rq
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.views.generic import DetailView
 
 from .forms import GoogleSearchForm
 from .models import Library, Book
-
-import requests as rq
 
 
 # Create your views here.
@@ -21,6 +21,9 @@ def book_search(request):
             if cd.get('author','') != '':
                 query['author'] = cd['author']
             return redirect(reverse('search_results',kwargs = query))
+        else:
+            print(form.errors)
+            return render(request, "google_book_api/search_form.html",context= {'form':form})
     form = GoogleSearchForm()
     context = {'form': form}
     return render(request, "google_book_api/search_form.html", context)
@@ -30,7 +33,7 @@ def book_search_results(request, **kwargs):
         'title': kwargs.get('title', ''),
         'author': kwargs.get('author', ''),
     }
-    QueryGenerator = ApiQueryGenerator(**query)
+    QueryGenerator = SearchBooksGoogleApi(**query)
     url = QueryGenerator.generate_query()
     context = data_fetch_from_api(url)
     page = 1
@@ -39,11 +42,10 @@ def book_search_results(request, **kwargs):
         'page': page
     })
 
-
-class BookDetailView(DetailView):
-    template_name = 'google_book_api/book_detail.html'
-    template_name_field = 'book'
-    model = Book
+def book_detail_view(request, slug):
+    url = f"https://www.googleapis.com/books/v1/volumes/{slug}"
+    book = data_fetch_from_api(url)
+    return render(request, "google_book_api/book_detail.html", context= {'book':book})
 
 
 class LibraryDetail(DetailView):
@@ -57,7 +59,7 @@ class LibraryDetail(DetailView):
             return redirect('user_auth:login_view')
 
 
-class ApiQueryGenerator:
+class SearchBooksGoogleApi:
     base_api_url = "https://www.googleapis.com/books/v1/volumes?q="
     aliases = {
         "title": "intitle",
@@ -104,10 +106,13 @@ class ApiQueryGenerator:
             return url
 
 
-def data_fetch_from_api(url):
+def data_fetch_from_api(url): # toDo Raise Http404 if status code is 503
     data = rq.get(url)
-    if "items" in data.json():
-        return {
-            "items": data.json()["items"]
-        }
-    raise Http404("No results for search ctiteria")
+    if data:
+        if "items" in data.json():
+            return {
+                "items": data.json()["items"]
+            }
+        else:
+            return data.json()
+    raise Http404("No results for search criteria")
