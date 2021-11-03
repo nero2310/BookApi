@@ -8,6 +8,18 @@
         <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
 </head>
 <body>
+{% block navbar %}
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                BookApi
+            </a>
+        </div>
+        <div class="container-fluid justify-content-end">
+            <a>Test</a>
+        </div>
+    </nav>
+{% endblock %}
 {% block content %}
 {% endblock %}
 </body>
