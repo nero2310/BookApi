@@ -31,6 +31,7 @@
             {% if user.is_authenticated == False %}
             <li><a class="dropdown-item" href="{% if user.is_authenticated %} # {% else %} {% url 'user_auth:login_view' %} {% endif %}">LogIn</a></li>
             {% else %}
+                <li><a class="dropdown-item" href=" {% url 'user_auth:user_profile' %}">Profile</a>
                 <li><a class="dropdown-item" href=" {% url 'user_auth:logout_view' %}">Logout</a>
             {% endif %}
           </ul>

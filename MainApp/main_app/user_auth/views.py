@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
@@ -39,3 +39,7 @@ def register_view(request):
     else:
         form = UserCreationForm()
         return render(request, "user_auth/register_page.html", context={'form': form})
+
+def user_profile(request):
+    user = get_user(request)
+    return  render(request, "user_auth/user_profile.html", context = {'user': user})
