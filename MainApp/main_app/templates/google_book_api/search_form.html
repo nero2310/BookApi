@@ -17,13 +17,15 @@
         </small>
     </div>
     <input type="submit" value="Search">
-        Errors :
+      {% if  form.errors %}
+        Errors:
       {% for field in form %}
           {% if field.errors %}
 	    {{ field.name  }} - {{ field.errors|striptags }}
               <br>
           {% endif %}
 	    {% endfor %}
+    {% endif %}
     </form>
     </div>
 {% endblock %}
