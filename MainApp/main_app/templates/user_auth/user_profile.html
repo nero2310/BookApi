@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-    {{ user }}
-    <img src="{{ user.profile.image.url }}">
+    <div class="container">
+        <div class="row">
+        <div class="col-md-2">
+        <img src="{{ user.profile.image.url }}" width="200px" height="200px">
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <p class="fs-6"><b>Username:</b> {{user }}</p>
+            </div>
+            <div class="row">
+                <p class="fs-6"><b>Email: </b> {{ user.email }} </p>
+            </div>
+            <div class="row">
+                <p class="fs-6"><b>Date of join: </b> {{ user.date_joined|date:"j F Y" }} </p>
+            </div>
+        </div>
+        </div>
+    </div>
 {%  endblock %}
