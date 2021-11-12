@@ -14,12 +14,12 @@
         {% if book.volumeInfo.imageLinks.thumbnail %}
             <div class="bg-image">
             <img data-bs-toggle = "tooltip" data-bs-placement="bottom" title="{{ book.volumeInfo.description|striptags|truncatewords:40 }}"
-                 src = {{book.volumeInfo.imageLinks.thumbnail}} width = "134" height = "204" >
+                 src = "{{book.volumeInfo.imageLinks.thumbnail}}" width = "134" height = "204" >
            </div>
         {% else %}
             <div class="bg-image">
             <img data-bs-toggle = "tooltip" data-bs-placement="bottom" title="{{ book.volumeInfo.description|striptags|truncatewords:40 }}"
-                    src=https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Book_important.svg/128px-Book_important.svg.png
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Book_important.svg/128px-Book_important.svg.png"
                  width="134" height="204" alt="Book without cover"/>
             </div>
 {#            https://creativecommons.org/use-remix/#}
