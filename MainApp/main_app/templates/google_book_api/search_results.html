@@ -4,7 +4,7 @@
     <div class="row">
     {% for book in books.items %}
         <div class="col-lg-3 col-md-4 cols-sm-1 mt-5">
-        Title: {{ book.volumeInfo.title }} <br>
+        {{ book.volumeInfo.title }} <br>
         Author:
         {% for author in  book.volumeInfo.authors %}
             {{ author }}
@@ -12,10 +12,16 @@
         {% endfor %}
         <a href=" {% url "single_book_view" book.id %}">
         {% if book.volumeInfo.imageLinks.thumbnail %}
-            <img src = {{book.volumeInfo.imageLinks.thumbnail}} width = "134" height = "204" >
+            <div class="bg-image">
+            <img data-bs-toggle = "tooltip" data-bs-placement="bottom" title="{{ book.volumeInfo.description|striptags|truncatewords:40 }}"
+                 src = {{book.volumeInfo.imageLinks.thumbnail}} width = "134" height = "204" >
+           </div>
         {% else %}
-            <img src=https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Book_important.svg/128px-Book_important.svg.png
+            <div class="bg-image">
+            <img data-bs-toggle = "tooltip" data-bs-placement="bottom" title="{{ book.volumeInfo.description|striptags|truncatewords:40 }}"
+                    src=https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Book_important.svg/128px-Book_important.svg.png
                  width="134" height="204" alt="Book without cover"/>
+            </div>
 {#            https://creativecommons.org/use-remix/#}
         {% endif %}
         </a>
@@ -25,5 +31,11 @@
     {% endfor %}
     </div>
     </div>
+    <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+    </script>
     {{ page.page }}
 {% endblock %}
