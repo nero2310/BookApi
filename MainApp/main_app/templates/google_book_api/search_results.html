@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class="container">
+    <div class="row">
     {% for book in books.items %}
-        Title: {{ book.volumeInfo.title }}
+        <div class="col-lg-3 col-md-4 cols-sm-1 mt-5">
+        Title: {{ book.volumeInfo.title }} <br>
         Author:
         {% for author in  book.volumeInfo.authors %}
             {{ author }}
@@ -18,7 +21,9 @@
         </a>
         {{ book.volumeInfo.publisher }}
         {{ book.volumeInfo.publishedDate }}
-        <br>
+        </div>
     {% endfor %}
+    </div>
+    </div>
     {{ page.page }}
 {% endblock %}
