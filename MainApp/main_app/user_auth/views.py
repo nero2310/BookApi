@@ -40,6 +40,7 @@ def register_view(request):
         form = UserCreationForm()
         return render(request, "user_auth/register_page.html", context={'form': form})
 
+
 def user_profile(request):
     user = get_user(request)
-    return  render(request, "user_auth/user_profile.html", context = {'user': user})
+    return render(request, "user_auth/user_profile.html", context = {'user': user})
